@@ -14,10 +14,39 @@ const  Cal = ({ navigation }) => {
     })();
   }, []);
 
+  async function createCalendar() {
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
+    if (status === 'granted') {
+      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+      console.log('Calendars:', calendars);
+  
+      const defaultCalendar = calendars.find(calendar => (
+        calendar.allowsModifications &&
+        calendar.source.name === 'iCloud' &&
+        calendar.title === 'Home'
+      ));
+      console.log('Default calendar:', defaultCalendar);
+  
+    if (defaultCalendar) {
+
+      const eventDetails = {
+        title: 'My Event',
+        startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+        endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
+        timeZone: 'America/Los_Angeles',
+        location: 'Bath Spa University',
+        notes: 'This is a test event',
+        alarms: [{ relativeOffset: -60 }] // 1 hour before event
+      };
+      await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
+    }
+  }
+};
   return (
     <View style={styles.container}>
-      <Text>Calendar Module Example</Text>
-      <Button title="Create a new calendar" onPress={createCalendar} />
+      <Text  >Calendar Module Example</Text>
+      <Button  title="Create a new Event" onPress={createCalendar} />
+
     </View>
   );
 }
@@ -27,24 +56,26 @@ async function getDefaultCalendarSource() {
   return defaultCalendar.source;
 }
 
-async function createCalendar() {
-  const defaultCalendarSource =
-    Platform.OS === 'ios'
-      ? await getDefaultCalendarSource()
-      : { isLocalAccount: true, name: 'Expo Calendar' };
-  const newCalendarID = await Calendar.createCalendarAsync({
-    title: 'Expo Calendar',
-    color: 'blue',
-    entityType: Calendar.EntityTypes.EVENT,
-    sourceId: defaultCalendarSource.id,
-    source: defaultCalendarSource,
-    name: 'internalCalendarName',
-    ownerAccount: 'personal',
-    accessLevel: Calendar.CalendarAccessLevel.OWNER,
-  });
-  console.log(`Your new calendar ID is: ${newCalendarID}`);
-}
 
-export default Cal
 
-const styles = StyleSheet.create({  }); 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#c9bea7',
+    
+    color:'#000',
+    height:52,
+    backgroundColor:'#dfd2bf',
+
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+
+    
+    },
+
+
+  }); 
+
+  export default Cal
