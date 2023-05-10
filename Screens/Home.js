@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useIsFocused } from "@react-navigation/native"
 
 const Home = ({ navigation }) => {
-  const [tickOne, setTickOne] = useState("0")
+  const [tickOne, setTickOne] = useState(false)
   const isFocused = useIsFocused()
 
   async function LoadtickOne() {
@@ -33,11 +33,66 @@ const Home = ({ navigation }) => {
 
   const on = async () => {
     await AsyncStorage.removeItem("tickOne")
-    setTickOne("0")
+    setTickOne(false)
   }
 
   const RankIcon = () => {
-    if (tickOne != "0") {
+    if (tickOne == 'true') {
+      console.log("Tick one")
+      return (
+        <Image
+          style={styles.icon2}
+          source={require("../assets/images/tick.png")}
+        />
+      )
+    } else {
+      return <Image style={styles.icon2} source={null} />
+    }
+  }
+
+  const RankIcon2 = () => {
+    if (tickOne == 'true') {
+      console.log("Tick one")
+      return (
+        <Image
+          style={styles.icon2}
+          source={require("../assets/images/tick.png")}
+        />
+      )
+    } else {
+      return <Image style={styles.icon2} source={null} />
+    }
+  }
+  const RankIcon3 = () => {
+    if (tickOne == 'true') {
+      console.log("Tick one")
+      return (
+        <Image
+          style={styles.icon2}
+          source={require("../assets/images/tick.png")}
+        />
+      )
+    } else {
+      return <Image style={styles.icon2} source={null} />
+    }
+  }
+
+  const RankIcon4 = () => {
+    if (tickOne == 'true') {
+      console.log("Tick one")
+      return (
+        <Image
+          style={styles.icon2}
+          source={require("../assets/images/tick.png")}
+        />
+      )
+    } else {
+      return <Image style={styles.icon2} source={null} />
+    }
+  }
+
+  const RankIcon5 = () => {
+    if (tickOne == 'true') {
       console.log("Tick one")
       return (
         <Image
@@ -68,14 +123,19 @@ const Home = ({ navigation }) => {
     navigation.navigate("Cal")
   }
 
+  function navigate6() {
+    navigation.navigate("Add")
+  }
+
   /**
 Pretty simple return code that lays out the home screen with touchable opecetys that can be used to navigate to all parts of the app.
 */
 
   return (
     <View style={styles.mainView}>
+      <Image style={styles.ImageStyle} source={require('../assets/appTop.png')}/>
       <View style={styles.BotView}>
-        <Text style={styles.sectionTitle}>TO COMPLETE</Text>
+      
         <View style={styles.list}>
           <View style={styles.Ticker}>
             <RankIcon />
@@ -84,27 +144,38 @@ Pretty simple return code that lays out the home screen with touchable opecetys 
             <Text style={styles.BtnTxt}>Passport</Text>
           </TouchableOpacity>
 
-          <View style={styles.Ticker}></View>
+      
+          <View style={styles.Ticker}>
+          <RankIcon2/>
+          </View>
           <TouchableOpacity onPress={navigate2} style={styles.Button}>
             <Text style={styles.BtnTxt}>Car Insurance</Text>
           </TouchableOpacity>
 
-          <View style={styles.Ticker}></View>
+        
+          <View style={styles.Ticker}>
+          <RankIcon2/>
+          </View>
           <TouchableOpacity onPress={navigate3} style={styles.Button}>
             <Text style={styles.BtnTxt}>Life Insurance</Text>
           </TouchableOpacity>
-
           <View>
-            <View style={styles.Ticker}></View>
+
+          
+            <View style={styles.Ticker}>
+            <RankIcon2/>
+            </View>
             <TouchableOpacity onPress={navigate4} style={styles.Button}>
               <Text style={styles.BtnTxt}>Water</Text>
             </TouchableOpacity>
           </View>
         </View>
 
+       
         <TouchableOpacity onPress={on} style={styles.ButtonLower}>
           <Text style={styles.plstxt}>+</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity onPress={navigate5} style={styles.ButtonLower2}>
           <Image
             style={styles.icon3}
@@ -123,7 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#c9bea7",
+    backgroundColor: "#F5ECD7",
     height: "100%",
   },
   BotView: {
@@ -164,7 +235,7 @@ const styles = StyleSheet.create({
     width: "70%",
     color: "#000",
     height: 52,
-    backgroundColor: "#AB946F",
+    backgroundColor: "#6E362A",
 
     marginTop: 20,
 
@@ -176,7 +247,7 @@ const styles = StyleSheet.create({
   BtnTxt: {
     fontWeight: "bold",
     fontSize: 20,
-    color: "#ffffff",
+    color: "#F5ECD7",
   },
   SignupTxt: {
     color: "gray",
@@ -188,15 +259,16 @@ const styles = StyleSheet.create({
 
   icon2: {
     alignSelf: "center",
-    top: "5%",
-    width: 45,
-    height: 45,
+    top: "2%",
+    width: 35,
+    height: 35,
   },
   Ticker: {
     top: 72,
     color: "#000",
     height: 52,
-    backgroundColor: "#AB946F",
+    borderColor: "#6E362A",
+    borderWidth: 5, borderRadius: 4,
     width: 50,
     left: "5%",
     height: 50,
@@ -204,13 +276,13 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   sectionTitle: {
-    color: "#6b564e",
+    color: "#6E362A",
     fontSize: 36,
-    fontWeight: "",
+    fontWeight: "500",
     marginLeft: "23%",
   },
   list: {
-    top: 40,
+bottom: 30,
     width: "90%",
     height: "80%",
     backgroundColor: "white",
@@ -224,36 +296,36 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 180 / 2,
-    backgroundColor: "#dfd2bf",
+    backgroundColor: "#D9A24B",
     left: "10%",
-    top: "95%",
-    shadowColor: "rgba(0, 0, 0, 0.9)",
+    top: "75%",
+    shadowColor: "rgba(0, 0, 0, 0.4)",
     shadowOpacity: 1,
-    elevation: 6,
+    elevation: 4,
     position: "absolute",
-    shadowRadius: 15,
-    shadowOffset: { width: 1, height: 13 },
+    shadowRadius: 12,
+    shadowOffset: { width: 1, height: 10 },
   },
   ButtonLower2: {
     width: 80,
     height: 80,
     borderRadius: 180 / 2,
-    backgroundColor: "#dfd2bf",
+    backgroundColor: "#D9A24B",
     left: "70%",
-    top: "95%",
+    top: "75%",
     position: "absolute",
-    shadowColor: "rgba(0, 0, 0, 0.9)",
+    shadowColor: "rgba(0, 0, 0, 0.4)",
     shadowOpacity: 1,
-    elevation: 6,
-    shadowRadius: 15,
-    shadowOffset: { width: 1, height: 13 },
+    elevation: 4,
+    shadowRadius: 12,
+    shadowOffset: { width: 1, height: 10 },
   },
   plstxt: {
-    fontSize: 64,
-    fontWeight: "bold",
-    left: "25%",
-    bottom: "3%",
-    color: "#6b564e",
+    fontSize: 84,
+    fontWeight: "200",
+    left: "19%",
+    bottom: "19%",
+    color: "white",
   },
   icon3: {
     alignSelf: "center",
@@ -261,6 +333,11 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
   },
+  ImageStyle:{
+    width:'130%',
+    height:'30%',
+    resizeMode:'contain',
+ },
 })
 
 export default Home

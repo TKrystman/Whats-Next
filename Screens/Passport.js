@@ -19,7 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 const Passport = ({ navigation }) => {
   //Variables that can be used throughout the code.
   const [Points, setPoints] = useState(0)
-  const [tickOne, setTickOne] = useState("0")
+  const [tickOne, setTickOne] = useState(false)
   const video = React.useRef(null)
 
   async function loadtick() {
@@ -34,8 +34,8 @@ const Passport = ({ navigation }) => {
   }, [])
 
   async function on() {
-    setTickOne("2")
-    await AsyncStorage.setItem("tickOne", "2")
+    setTickOne("true")
+    await AsyncStorage.setItem("tickOne", "true")
   }
 
   //Function to take the user home when it is called.
@@ -55,7 +55,7 @@ const Passport = ({ navigation }) => {
         <Text style={styles.sectionTitle}> Passport</Text>
       </View>
       <TouchableOpacity onPress={link} style={styles.link}>
-        <Text style={styles.txtb}> Link </Text>
+        <Text style={styles.linkt}> Link </Text>
       </TouchableOpacity>
       <View style={styles.list}>
         <Video
@@ -69,8 +69,9 @@ const Passport = ({ navigation }) => {
           <Text style={styles.txtp}>
             {" "}
             1.When visiting the government website linked above. You are met
-            with this webpage [*Show webpage*].
+            with this webpage 
           </Text>
+          <Image style={styles.ImageStyle} source={require('../assets/Screenshot1.png')}/>
           <Text style={styles.txtp}>
             2. Next, click ‘What to do with a passport when the passport holder
             has died’ under the ‘Documents’ section a file will download to your
@@ -85,6 +86,7 @@ const Passport = ({ navigation }) => {
             version or format of the document that is more accessible to any
             needs that you may have.)
           </Text>
+          <Image style={styles.ImageStyle} source={require('../assets/Screenshot2.png')}/>
           <Text style={styles.txtp}>
             4.The document itself is only three pages long. Seeing as it needs
             to be posted to the address included at the bottom of the final
@@ -99,6 +101,7 @@ const Passport = ({ navigation }) => {
             not have access to a printer, consider contacting the Citizens
             Advice Bureau.)
           </Text>
+          <Image style={styles.ImageStyle} source={require('../assets/Screenshot3.png')}/>
           <Text style={styles.txtp}>
             5.5. In order to digitally edit documents you have downloaded, some
             programs such as Microsoft Word require you to ‘enable editing’ by
@@ -138,17 +141,18 @@ const Passport = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#c9bea7",
+    backgroundColor: "#F5ECD7",
   },
   tasksWrapper: {
-    paddingTop: 80,
+    paddingTop: 40,
     paddingHorizontal: 20,
   },
   sectionTitle: {
-    color: "#6b564e",
+    color: "#6E362A",
     fontSize: 36,
     fontWeight: "",
-    marginLeft: "19%",
+    top:'15%',
+    marginLeft: "30%",
   },
   items: {
     marginTop: 30,
@@ -179,7 +183,7 @@ const styles = StyleSheet.create({
   },
   addText: {},
   list: {
-    top: 40,
+    top: 110,
     width: "90%",
     height: "60%",
     backgroundColor: "white",
@@ -193,7 +197,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 180 / 2,
-    backgroundColor: "#dfd2bf",
+    backgroundColor: "#D9A24B",
 
     shadowColor: "rgba(0, 0, 0, 0.9)",
     shadowOpacity: 1,
@@ -220,55 +224,66 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     top: 60,
-    marginTop: 20,
-    marginLeft: 30,
-    marginRight: 30,
+    marginTop: 50,
+    marginLeft: 20,
+    marginRight: 20,
   },
   txtb: {
-    color: "#6b564e",
+    color: "#fff",
 
-    fontSize: "15",
+    fontSize: "25",
     fontWeight: "bold",
     alignSelf: "center",
 
     marginLeft: 30,
     marginRight: 30,
   },
+  linkt:{
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#6E362A",
+  },
   Button: {
     width: "50%",
     color: "#000",
-    height: 52,
-    backgroundColor: "#dfd2bf",
-
+    height: 72,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    left: "5%",
-    shadowColor: "rgba(0, 0, 0, 0.9)",
+    backgroundColor: "#D9A24B",
+    shadowColor: "rgba(0, 0, 0, 0.4)",
     shadowOpacity: 1,
-    elevation: 6,
-    shadowRadius: 15,
-    shadowOffset: { width: 1, height: 13 },
+    elevation: 4,
+    borderRadius: 150 / 2,
+    shadowRadius: 12,
+    shadowOffset: { width: 1, height: 10 },
   },
   svs: {
     top: "5%",
   },
   link: {
-    width: "50%",
     color: "#000",
     height: 52,
-    backgroundColor: "#dfd2bf",
-
-    top: "3%",
+    borderColor: "#6E362A",
+    borderWidth: 5, borderRadius: 4,
+    display: "flex",
     justifyContent: "center",
-
+    alignItems: "center",
+ 
+    position: "absolute",
+    width: "50%",
+    color: "#000",
+    top: "15%",
+    justifyContent: "center",
     left: "25%",
-    shadowColor: "rgba(0, 0, 0, 0.9)",
-    shadowOpacity: 1,
-    elevation: 6,
-    shadowRadius: 15,
-    shadowOffset: { width: 1, height: 13 },
+    
   },
+  ImageStyle: {
+    width: 300,
+    height:190,
+    top: "6%",
+    left:"10%",
+  }
 })
 
 export default Passport

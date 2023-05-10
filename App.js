@@ -7,6 +7,8 @@ import Car from './Screens/Car';
 import Life from './Screens/Life';
 import Water from './Screens/Water';
 import Cal from './Screens/Calendar';
+import Add from './Screens/AddServices';
+import Intro from './Screens/Intro';
 export default function App() {
  
   const Stack = createNativeStackNavigator();
@@ -18,15 +20,15 @@ export default function App() {
   return(
   <NavigationContainer>
   <Stack.Navigator>
-
+  <Stack.Screen name="Intro" component={Intro} options={{headerShown:false}}/>
   <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
   <Stack.Screen name="Passport" component={Passport} options={{headerShown:false}}/>
   <Stack.Screen name="Car" component={Car} options={{headerShown:false}}/>
   <Stack.Screen name="Life" component={Life} options={{headerShown:false}}/>
   <Stack.Screen name="Water" component={Water} options={{headerShown:false}}/>
   <Stack.Screen name="Cal" component={Cal} options={{headerShown:false}}/>
-
- 
+  <Stack.Screen name="Add" component={Add} options={{headerShown:false}}/>
+  
   </Stack.Navigator>
 </NavigationContainer>
   );
