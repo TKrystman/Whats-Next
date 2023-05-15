@@ -17,6 +17,9 @@ import { useIsFocused } from "@react-navigation/native"
 
 const Home = ({ navigation }) => {
   const [tickOne, setTickOne] = useState(false)
+  const [tickTwo, setTickTwo] = useState(false)
+  const [tickThree, setTickThree] = useState(false)
+  const [tickFour, setTickFour] = useState(false)
   const isFocused = useIsFocused()
 
   async function LoadtickOne() {
@@ -31,9 +34,52 @@ const Home = ({ navigation }) => {
     LoadtickOne()
   }, [isFocused])
 
+
+  async function LoadtickTwo() {
+    const TotalValue = await AsyncStorage.getItem("tickTwo")
+    console.log("home = " + TotalValue)
+    console.log(TotalValue)
+    if (TotalValue !== null) {
+      setTickTwo(TotalValue)
+    }
+  }
+  useEffect(() => {
+    LoadtickTwo()
+  }, [isFocused])
+
+  async function LoadtickThree() {
+    const TotalValue = await AsyncStorage.getItem("tickThree")
+    console.log("home = " + TotalValue)
+    console.log(TotalValue)
+    if (TotalValue !== null) {
+      setTickThree(TotalValue)
+    }
+  }
+  useEffect(() => {
+    LoadtickThree()
+  }, [isFocused])
+
+  async function LoadtickFour() {
+    const TotalValue = await AsyncStorage.getItem("tickFour")
+    console.log("home = " + TotalValue)
+    console.log(TotalValue)
+    if (TotalValue !== null) {
+      setTickFour(TotalValue)
+    }
+  }
+  useEffect(() => {
+    LoadtickFour()
+  }, [isFocused])
+
   const on = async () => {
     await AsyncStorage.removeItem("tickOne")
     setTickOne(false)
+    await AsyncStorage.removeItem("tickTwo")
+    setTickTwo(false)
+    await AsyncStorage.removeItem("tickThree")
+    setTickThree(false)
+    await AsyncStorage.removeItem("tickFour")
+    setTickFour(false)
   }
 
   const RankIcon = () => {
@@ -51,8 +97,8 @@ const Home = ({ navigation }) => {
   }
 
   const RankIcon2 = () => {
-    if (tickOne == 'true') {
-      console.log("Tick one")
+    if (tickTwo == 'true') {
+      console.log("Tick Two")
       return (
         <Image
           style={styles.icon2}
@@ -64,8 +110,8 @@ const Home = ({ navigation }) => {
     }
   }
   const RankIcon3 = () => {
-    if (tickOne == 'true') {
-      console.log("Tick one")
+    if (tickThree == 'true') {
+      console.log("Tick Three")
       return (
         <Image
           style={styles.icon2}
@@ -78,8 +124,8 @@ const Home = ({ navigation }) => {
   }
 
   const RankIcon4 = () => {
-    if (tickOne == 'true') {
-      console.log("Tick one")
+    if (tickFour == 'true') {
+      console.log("Tick Four")
       return (
         <Image
           style={styles.icon2}
@@ -91,19 +137,7 @@ const Home = ({ navigation }) => {
     }
   }
 
-  const RankIcon5 = () => {
-    if (tickOne == 'true') {
-      console.log("Tick one")
-      return (
-        <Image
-          style={styles.icon2}
-          source={require("../assets/images/tick.png")}
-        />
-      )
-    } else {
-      return <Image style={styles.icon2} source={null} />
-    }
-  }
+
 
   //Functions to allow the buttons to navigate to the different parts of the app.
   function navigate() {
@@ -154,7 +188,7 @@ Pretty simple return code that lays out the home screen with touchable opecetys 
 
         
           <View style={styles.Ticker}>
-          <RankIcon2/>
+          <RankIcon3/>
           </View>
           <TouchableOpacity onPress={navigate3} style={styles.Button}>
             <Text style={styles.BtnTxt}>Life Insurance</Text>
@@ -163,7 +197,8 @@ Pretty simple return code that lays out the home screen with touchable opecetys 
 
           
             <View style={styles.Ticker}>
-            <RankIcon2/>
+            <RankIcon4/>
+           
             </View>
             <TouchableOpacity onPress={navigate4} style={styles.Button}>
               <Text style={styles.BtnTxt}>Water</Text>
@@ -172,7 +207,7 @@ Pretty simple return code that lays out the home screen with touchable opecetys 
         </View>
 
        
-        <TouchableOpacity onPress={on} style={styles.ButtonLower}>
+        <TouchableOpacity onPress={navigate6} style={styles.ButtonLower}>
           <Text style={styles.plstxt}>+</Text>
         </TouchableOpacity>
         

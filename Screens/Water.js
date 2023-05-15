@@ -15,28 +15,37 @@ import {
 } from "react-native"
 import { Video } from "expo-av"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import Complete from './Complete';
 
 const Water = ({ navigation }) => {
  //Variables that can be used throughout the code.
  const [Points, setPoints] = useState(0)
- const [tickOne, setTickOne] = useState("0")
+ const [tickFour, setTickFour] = useState(false)
  const video = React.useRef(null)
+ const [successMessage,setSuccessMessage]= useState('');
+ const [Loading,setLoading]= useState(false);
 
  async function loadtick() {
-   const tick = await AsyncStorage.getItem("tickOne")
-   if (tick !== null) {
-     setTickOne(tick)
-   }
- }
+  const tick = await AsyncStorage.getItem("tickFour")
+  if (tick !== null) {
+    setTickFour(tick)
+  }
+}
 
- useEffect(() => {
-   loadtick()
- }, [])
+useEffect(() => {
+  loadtick()
+}, [])
 
- async function on() {
-   setTickOne("2")
-   await AsyncStorage.setItem("tickOne", "2")
- }
+async function on() {
+  setTickFour("true")
+  await AsyncStorage.setItem("tickFour", "true")
+
+  setLoading(true);
+  
+      setSuccessMessage("Task Complete"); 
+      setLoading(false);
+      console.log(re);
+}
 
  //Function to take the user home when it is called.
  function navigate() {
@@ -45,7 +54,7 @@ const Water = ({ navigation }) => {
 
  function link() {
    Linking.openURL(
-     "https://www.gov.uk/government/publications/what-to-do-with-a-passport-when-the-passport-holder-has-died"
+     "https://www.wessexwater.co.uk/your-account/your-bill/bereavement"
    )
  }
 
@@ -134,6 +143,15 @@ const Water = ({ navigation }) => {
          <Text style={styles.txtb}> Done </Text>
        </TouchableOpacity>
      </KeyboardAvoidingView>
+     {
+Loading== true?
+<Complete/>
+:
+successMessage=="Task Complete"?
+<Complete successMessage={successMessage} close={setSuccessMessage}/>
+:
+null
+}
    </View>
  )
 }

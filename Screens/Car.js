@@ -15,7 +15,7 @@ import {
 } from "react-native"
 import { Video } from "expo-av"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-
+import Complete from './Complete';
 
 
 
@@ -25,13 +25,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 const Car = ({ navigation }) => {
   //Variables that can be used throughout the code.
   const [Points, setPoints] = useState(0)
-  const [tickOne, setTickOne] = useState("0")
+  const [tickTwo, setTickTwo] = useState(false)
   const video = React.useRef(null)
+  const [successMessage,setSuccessMessage]= useState('');
+const [Loading,setLoading]= useState(false);
 
   async function loadtick() {
-    const tick = await AsyncStorage.getItem("tickOne")
+    const tick = await AsyncStorage.getItem("tickTwo")
     if (tick !== null) {
-      setTickOne(tick)
+      setTickTwo(tick)
     }
   }
 
@@ -40,9 +42,17 @@ const Car = ({ navigation }) => {
   }, [])
 
   async function on() {
-    setTickOne("2")
-    await AsyncStorage.setItem("tickOne", "2")
+    setTickTwo("true")
+    await AsyncStorage.setItem("tickTwo", "true")
+
+    setLoading(true);
+  
+    setSuccessMessage("Task Complete"); 
+    setLoading(false);
+    console.log(re);
+      
   }
+
 
   //Function to take the user home when it is called.
   function navigate() {
@@ -51,7 +61,7 @@ const Car = ({ navigation }) => {
 
   function link() {
     Linking.openURL(
-      "https://www.gov.uk/government/publications/what-to-do-with-a-passport-when-the-passport-holder-has-died"
+      "https://www.theaa.com/help-support/report-a-bereavement"
     )
   }
 
@@ -140,6 +150,15 @@ const Car = ({ navigation }) => {
           <Text style={styles.txtb}> Done </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      {
+Loading== true?
+<Complete/>
+:
+successMessage=="Task Complete"?
+<Complete successMessage={successMessage} close={setSuccessMessage}/>
+:
+null
+}
     </View>
   )
 }

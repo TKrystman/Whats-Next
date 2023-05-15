@@ -15,13 +15,15 @@ import {
 } from "react-native"
 import { Video } from "expo-av"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import Complete from './Complete';
 
 const Passport = ({ navigation }) => {
   //Variables that can be used throughout the code.
   const [Points, setPoints] = useState(0)
   const [tickOne, setTickOne] = useState(false)
   const video = React.useRef(null)
-
+  const [successMessage,setSuccessMessage]= useState('');
+const [Loading,setLoading]= useState(false);
   async function loadtick() {
     const tick = await AsyncStorage.getItem("tickOne")
     if (tick !== null) {
@@ -36,6 +38,13 @@ const Passport = ({ navigation }) => {
   async function on() {
     setTickOne("true")
     await AsyncStorage.setItem("tickOne", "true")
+
+    setLoading(true);
+  
+      setSuccessMessage("Task Complete"); //Once it has been successfully created then this will display to the user.
+      setLoading(false);
+      console.log(re);
+        
   }
 
   //Function to take the user home when it is called.
@@ -61,7 +70,7 @@ const Passport = ({ navigation }) => {
         <Video
           ref={video}
           style={styles.icon3}
-          source={require("../assets/images/Football.mp4")}
+          source={require("../assets/Passport.mp4")}
           useNativeControls
         />
 
@@ -131,9 +140,22 @@ const Passport = ({ navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => on()} style={styles.Button}>
+ 
+
+
+
           <Text style={styles.txtb}> Done </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      {
+Loading== true?
+<Complete/>
+:
+successMessage=="Task Complete"?
+<Complete successMessage={successMessage} close={setSuccessMessage}/>
+:
+null
+}
     </View>
   )
 }
