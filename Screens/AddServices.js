@@ -13,21 +13,31 @@ const  Add = ({ navigation }) => {
           "https://www.google.com/maps/search/funeral+director"
         )
       }
-
+      function  navigate() {
+        navigation.navigate("Home")
+      }
     return (
       
         <View style={styles.container}>
 
 <Image style={styles.ImageStyle} source={require('../assets/AddSer.png')}/>
-  
+<Image style={styles.icon3} source={require('../assets/Flower.png')}/>
           <TouchableOpacity  style={styles.ButtonLower} onPress={link}>
                <Text style={styles.BtnTxt}> Flowers Near Me </Text>
                 </TouchableOpacity>
-
+                <Image style={styles.icon4} source={require('../assets/Funeral.png')}/>
           <TouchableOpacity  style={styles.ButtonLower2} onPress={link2}> 
-          <Text style={styles.BtnTxt}> Funderal Services Near Me </Text> 
-          </TouchableOpacity> 
+          <Text style={styles.BtnTxt}> Funeral Services Near Me </Text> 
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={navigate} style={styles.CircleShapeView}>
+         <Image
+           style={styles.icon5}
+           source={require("../assets/images/HomeIc.png")}
+         />
+       </TouchableOpacity>
         </View>
+        
       );
 };
  
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
         height: 52,
         backgroundColor: "#6E362A",
 
-        marginTop: 300,
+        marginTop: 370,
     
         display: "flex",
         justifyContent: "center",
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
         height: 52,
         backgroundColor: "#6E362A",
 
-        marginTop: 400,
+        marginTop: 650,
     
         display: "flex",
         justifyContent: "center",
@@ -97,6 +107,36 @@ const styles = StyleSheet.create({
       ImageStyle: {
         width: "100%",
   height: "20%",
+      },
+      icon3: {
+        alignSelf: "center",
+        top: "5%",
+        width: 150,
+        height: 200,
+      },
+      icon4: {
+        alignSelf: "center",
+        top: "10%",
+        width: 150,
+        height: 200,
+      },
+      CircleShapeView: {
+        width: 80,
+        height: 80,
+        borderRadius: 180 / 2,
+        backgroundColor: "#D9A24B",
+     top:'20%',
+        shadowColor: "rgba(0, 0, 0, 0.4)",
+        shadowOpacity: 1,
+        elevation: 4,
+        shadowRadius: 12,
+        shadowOffset: { width: 1, height: 10 },
+      },
+      icon5: {
+        alignSelf: "center",
+        top: "18%",
+        width: 50,
+        height: 50,
       },
   }); 
 

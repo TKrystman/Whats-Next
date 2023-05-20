@@ -45,20 +45,7 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         marginTop:20,
       },
-      OKBTN:{
-        width:'90%',
-        color:'#000',
-        height:52,
-        backgroundColor:'#6b564e',
-        borderRadius: 10,
-        marginTop:20,
-        display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
-        
-     
 
-      },
       btntxt:{
         fontWeight:'bold',
         fontSize:30,

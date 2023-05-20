@@ -22,6 +22,28 @@ const Home = ({ navigation }) => {
   const [tickFour, setTickFour] = useState(false)
   const isFocused = useIsFocused()
 
+  let [isLoaded, setIsLoaded] = React.useState(false);
+
+  let cacheResources = async () => {
+    const images = [require("../assets/appMain.png")];
+    const images2 = [require("../assets/appTop.png")];
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+  
+    return Promise.all(cacheImages);
+  }
+  
+  React.useEffect(() => {
+    const loadResources = async () =>{
+      await cacheResources();
+      setIsLoaded(true);
+    };
+    loadResources();
+  }, [])
+  
+
+
   async function LoadtickOne() {
     const TotalValue = await AsyncStorage.getItem("tickOne")
     console.log("home = " + TotalValue)

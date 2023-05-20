@@ -16,7 +16,7 @@ import {
 import { Video } from "expo-av"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Complete from './Complete';
-
+import * as Calendar from 'expo-calendar';
 
 
 
@@ -29,6 +29,47 @@ const Car = ({ navigation }) => {
   const video = React.useRef(null)
   const [successMessage,setSuccessMessage]= useState('');
 const [Loading,setLoading]= useState(false);
+
+useEffect(() => {
+  (async () => {
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
+    if (status === 'granted') {
+      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+      console.log('Here are all your calendars:');
+      console.log({ calendars });
+    }
+  })();
+}, []);
+
+async function createCalendar() {
+  const { status } = await Calendar.requestCalendarPermissionsAsync();
+  if (status === 'granted') {
+    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    console.log('Calendars:', calendars);
+
+    const defaultCalendar = calendars.find(calendar => (
+      calendar.allowsModifications &&
+      calendar.source.name === 'iCloud' &&
+      calendar.title === 'Home'
+    ));
+    console.log('Default calendar:', defaultCalendar);
+
+  if (defaultCalendar) {
+
+    const eventDetails = {
+      title: 'My Event',
+      startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
+      timeZone: 'Europe/London',
+      location: 'Bath Spa University',
+      notes: 'This is a test event',
+      alarms: [{ relativeOffset: -60 }] // 1 hour before event
+    };
+    await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
+  }
+  }
+}
+
 
   async function loadtick() {
     const tick = await AsyncStorage.getItem("tickTwo")
@@ -74,64 +115,32 @@ const [Loading,setLoading]= useState(false);
         <Text style={styles.linkt}> Link </Text>
       </TouchableOpacity>
       <View style={styles.list}>
-        <Video
-          ref={video}
-          style={styles.icon3}
-          source={require("../assets/images/Football.mp4")}
-          useNativeControls
-        />
+      <Image style={styles.icon3} source={require('../assets/images/VideoPlaceholder.png')}/>
 
         <ScrollView style={styles.svs}>
           <Text style={styles.txtp}>
             {" "}
-            1.When visiting the government website linked above. You are met
-            with this webpage 
+            1.When visiting the website listed above the following web page will show:
           </Text>
           <Image style={styles.ImageStyle} source={require('../assets/Screenshot1.png')}/>
           <Text style={styles.txtp}>
-            2. Next, click ‘What to do with a passport when the passport holder
-            has died’ under the ‘Documents’ section a file will download to your
-            computer.
+            2. They will need to take your contact details so we can get in touch with you about closing their account.
+             They may also ask to see certain documents, such as a death certificate. You'll need to have these things to hand: Your email address, 
+             the deceased person's address, membership or policy number, and date of death. (Membership numbers have 16 digits, and can be found on the back of their membership card.
+              Policy numbers can be found on their policy documents.)
           </Text>
           <Text style={styles.txtp}>
-            3. From here simply click the icon for the downloaded file and it
-            will open. It is worth noting that it is good practice to be careful
-            of most websites that download files to your computer but in the
-            case of the government website we have linked there is nothing to
-            worry about! (There is also the option on the site to request a
-            version or format of the document that is more accessible to any
-            needs that you may have.)
+            3. Fill out the form provided on the website. Once you  are done hit send the Your request will then be sent to the AA Personal Support Team.
           </Text>
           <Image style={styles.ImageStyle} source={require('../assets/Screenshot2.png')}/>
           <Text style={styles.txtp}>
-            4.The document itself is only three pages long. Seeing as it needs
-            to be posted to the address included at the bottom of the final
-            page.
+            4.They will update our records and get in touch within 5 working days to confirm. Sometimes, 
+            you might need to send documents to help verify your identity. If this is the case,They will let you know by email.
+             Please Note If the deceased member was disabled note that once the insurance is changed over you will not receive the same tax benefits and will have to start paying road tax immediately.
           </Text>
-          <Text style={styles.txtp}>
-            5. You must now print the document.The option for printing is often
-            found under the ‘file’ tab such as in Microsoft Word [*Show this*].
-            When the document is printed, you can fill it out physically but if
-            you need to fill it out on the computer this is also possible,
-            however to post it you will still need to print it off. (If you do
-            not have access to a printer, consider contacting the Citizens
-            Advice Bureau.)
-          </Text>
-          <Image style={styles.ImageStyle} source={require('../assets/Screenshot3.png')}/>
-          <Text style={styles.txtp}>
-            5.5. In order to digitally edit documents you have downloaded, some
-            programs such as Microsoft Word require you to ‘enable editing’ by
-            clicking this button at the top of the screen. Upon clicking it, you
-            are now able to type words into the page in order to fill in the
-            details of the passport, yourself and the deceased. You can also
-            alter how the document looks which could be useful as you can change
-            the color of the background and text.
-          </Text>
-          <Text style={styles.txtp}>
-            6.From here simply fill out the form digitally or physically before
-            sending it off to the address enclosed in the document and the
-            Passport Office should handle the rest.
-          </Text>
+          <TouchableOpacity style={styles.Button2}  onPress={createCalendar}>
+        <Text style={styles.BtnTxt2}>Remind me in 1 week.</Text>
+        </TouchableOpacity>
         </ScrollView>
         <View style={styles.items}></View>
       </View>
@@ -309,7 +318,28 @@ const styles = StyleSheet.create({
     height:190,
     top: "6%",
     left:"10%",
-  }
+  },
+  Button2:{
+    width: "70%",
+      color: "#000",
+      height: 52,
+      borderColor: "#6E362A",
+      borderWidth: 5, borderRadius: 4,
+      marginTop: 130,
+  
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+   
+      
+
+  },
+
+  BtnTxt2: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#6E362A",
+  },
 })
 
 

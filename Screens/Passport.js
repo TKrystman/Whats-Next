@@ -24,6 +24,8 @@ const Passport = ({ navigation }) => {
   const video = React.useRef(null)
   const [successMessage,setSuccessMessage]= useState('');
 const [Loading,setLoading]= useState(false);
+
+
   async function loadtick() {
     const tick = await AsyncStorage.getItem("tickOne")
     if (tick !== null) {
@@ -41,7 +43,7 @@ const [Loading,setLoading]= useState(false);
 
     setLoading(true);
   
-      setSuccessMessage("Task Complete"); //Once it has been successfully created then this will display to the user.
+      setSuccessMessage("Task Complete"); 
       setLoading(false);
       console.log(re);
         
@@ -118,7 +120,7 @@ const [Loading,setLoading]= useState(false);
             are now able to type words into the page in order to fill in the
             details of the passport, yourself and the deceased. You can also
             alter how the document looks which could be useful as you can change
-            the color of the background and text.
+            the colour of the background and text.
           </Text>
           <Text style={styles.txtp}>
             6.From here simply fill out the form digitally or physically before

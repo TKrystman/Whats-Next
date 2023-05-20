@@ -16,7 +16,7 @@ import {
 import { Video } from "expo-av"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Complete from './Complete';
-
+import * as Calendar from 'expo-calendar';
 
 
 
@@ -30,6 +30,47 @@ const Life = ({ navigation }) => {
  const [successMessage,setSuccessMessage]= useState('');
  const [Loading,setLoading]= useState(false);
 
+
+ useEffect(() => {
+  (async () => {
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
+    if (status === 'granted') {
+      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+      console.log('Here are all your calendars:');
+      console.log({ calendars });
+    }
+  })();
+}, []);
+
+async function createCalendar() {
+  const { status } = await Calendar.requestCalendarPermissionsAsync();
+  if (status === 'granted') {
+    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    console.log('Calendars:', calendars);
+
+    const defaultCalendar = calendars.find(calendar => (
+      calendar.allowsModifications &&
+      calendar.source.name === 'iCloud' &&
+      calendar.title === 'Home'
+    ));
+    console.log('Default calendar:', defaultCalendar);
+
+  if (defaultCalendar) {
+
+    const eventDetails = {
+      title: 'Life Insurence Claimb',
+      startDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 1 week from now
+      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
+      timeZone: 'Europe/London',
+      location: 'Bath Spa University',
+      notes: 'Life Insurence Claim return deadline.',
+      alarms: [{ relativeOffset: -60 }] // 1 hour before event
+    };
+    await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
+  }
+}
+};
+ 
  async function loadtick() {
   const tick = await AsyncStorage.getItem("tickThree")
   if (tick !== null) {
@@ -59,7 +100,7 @@ async function on() {
 
  function link() {
    Linking.openURL(
-     "https://www.moneyhelper.org.uk/en/everyday-money/insurance/what-is-life-insurance"
+     "https://www.mariecurie.org.uk/help/support/benefits-entitlements/bereavement/claiming-on-life-insurance#:~:text=You%20will%20need%20to%20send,was%20named%20as%20the%20beneficiary."
    )
  }
 
@@ -72,64 +113,31 @@ async function on() {
        <Text style={styles.linkt}> Link </Text>
      </TouchableOpacity>
      <View style={styles.list}>
-       <Video
-         ref={video}
-         style={styles.icon3}
-         source={require("../assets/images/Football.mp4")}
-         useNativeControls
-       />
+     <Image style={styles.icon3} source={require('../assets/images/VideoPlaceholder.png')}/>
 
        <ScrollView style={styles.svs}>
          <Text style={styles.txtp}>
            {" "}
-           1.When visiting the government website linked above. You are met
-           with this webpage 
+           1.Follow the link above and read carefully though the page. You must be aware of the life insurence 
+           the deseaced person was with before they passed.
          </Text>
-         <Image style={styles.ImageStyle} source={require('../assets/Screenshot1.png')}/>
+    
          <Text style={styles.txtp}>
-           2. Next, click ‘What to do with a passport when the passport holder
-           has died’ under the ‘Documents’ section a file will download to your
-           computer.
-         </Text>
-         <Text style={styles.txtp}>
-           3. From here simply click the icon for the downloaded file and it
-           will open. It is worth noting that it is good practice to be careful
-           of most websites that download files to your computer but in the
-           case of the government website we have linked there is nothing to
-           worry about! (There is also the option on the site to request a
-           version or format of the document that is more accessible to any
-           needs that you may have.)
-         </Text>
-         <Image style={styles.ImageStyle} source={require('../assets/Screenshot2.png')}/>
-         <Text style={styles.txtp}>
-           4.The document itself is only three pages long. Seeing as it needs
-           to be posted to the address included at the bottom of the final
-           page.
+           2. You will need to send the insurer documents they will ask for on their website.
+           You will need to clearly outline you claim, including a copy of the person's death certificate.
          </Text>
          <Text style={styles.txtp}>
-           5. You must now print the document.The option for printing is often
-           found under the ‘file’ tab such as in Microsoft Word [*Show this*].
-           When the document is printed, you can fill it out physically but if
-           you need to fill it out on the computer this is also possible,
-           however to post it you will still need to print it off. (If you do
-           not have access to a printer, consider contacting the Citizens
-           Advice Bureau.)
+           3. If the policy was 'written in trust', the insurance company will pay the money to whoever was named as the beneficiary. A beneficiary is someone who receives the money. 
+           There will not be any inheritance tax to pay on this money. If the policy was not written in trust, the money will be considered as part of the person's estate.
+           The estate includes all the money, assets and possessions the person owned when they died. This means getting the money can take longer and it may be subject to inheritance tax.
          </Text>
-         <Image style={styles.ImageStyle} source={require('../assets/Screenshot3.png')}/>
+        
          <Text style={styles.txtp}>
-           5.5. In order to digitally edit documents you have downloaded, some
-           programs such as Microsoft Word require you to ‘enable editing’ by
-           clicking this button at the top of the screen. Upon clicking it, you
-           are now able to type words into the page in order to fill in the
-           details of the passport, yourself and the deceased. You can also
-           alter how the document looks which could be useful as you can change
-           the color of the background and text.
+           4. Life insurance claims are often settled within 30 days.
          </Text>
-         <Text style={styles.txtp}>
-           6.From here simply fill out the form digitally or physically before
-           sending it off to the address enclosed in the document and the
-           Passport Office should handle the rest.
-         </Text>
+         <TouchableOpacity style={styles.Button2}  onPress={createCalendar}>
+        <Text style={styles.BtnTxt2}>Remind me in 30 Days.</Text>
+        </TouchableOpacity>
        </ScrollView>
        <View style={styles.items}></View>
      </View>
@@ -307,7 +315,28 @@ const styles = StyleSheet.create({
    height:190,
    top: "6%",
    left:"10%",
- }
+ },
+ Button2:{
+  width: "70%",
+    color: "#000",
+    height: 52,
+    borderColor: "#6E362A",
+    borderWidth: 5, borderRadius: 4,
+    marginTop: 130,
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+ 
+    
+
+},
+
+BtnTxt2: {
+  fontWeight: "bold",
+  fontSize: 20,
+  color: "#6E362A",
+},
 })
 
 

@@ -9,6 +9,7 @@ import Water from './Screens/Water';
 import Cal from './Screens/Calendar';
 import Add from './Screens/AddServices';
 import Intro from './Screens/Intro';
+import HowToUse from './Screens/HowToUse';
 export default function App() {
  
   const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ export default function App() {
   <Stack.Screen name="Water" component={Water} options={{headerShown:false}}/>
   <Stack.Screen name="Cal" component={Cal} options={{headerShown:false}}/>
   <Stack.Screen name="Add" component={Add} options={{headerShown:false}}/>
+  <Stack.Screen name="HowToUse" component={HowToUse} options={{headerShown:false}}/>
   
   </Stack.Navigator>
 </NavigationContainer>

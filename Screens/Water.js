@@ -67,63 +67,32 @@ async function on() {
        <Text style={styles.linkt}> Link </Text>
      </TouchableOpacity>
      <View style={styles.list}>
-       <Video
-         ref={video}
-         style={styles.icon3}
-         source={require("../assets/images/Football.mp4")}
-         useNativeControls
-       />
+     <Image style={styles.icon3} source={require('../assets/images/VideoPlaceholder.png')}/>
 
        <ScrollView style={styles.svs}>
          <Text style={styles.txtp}>
            {" "}
-           1.When visiting the government website linked above. You are met
-           with this webpage 
+           1.Before interacting with any of the website links make sure you have the following information for your 
+           loved one/friend’s financial affairs: Details of the deceased including their address and the date of their 
+           death, the Wessex Water customer number (if available), whether the property was owned or rented, an 
+           update-to-date water metre reading (if available), the name, address and telephone number of the person 
+           or executor who is legally looking after the affairs of the deceased. Whether water is still required 
+           at the property.
          </Text>
-         <Image style={styles.ImageStyle} source={require('../assets/Screenshot1.png')}/>
+    
          <Text style={styles.txtp}>
-           2. Next, click ‘What to do with a passport when the passport holder
-           has died’ under the ‘Documents’ section a file will download to your
-           computer.
-         </Text>
-         <Text style={styles.txtp}>
-           3. From here simply click the icon for the downloaded file and it
-           will open. It is worth noting that it is good practice to be careful
-           of most websites that download files to your computer but in the
-           case of the government website we have linked there is nothing to
-           worry about! (There is also the option on the site to request a
-           version or format of the document that is more accessible to any
-           needs that you may have.)
-         </Text>
-         <Image style={styles.ImageStyle} source={require('../assets/Screenshot2.png')}/>
-         <Text style={styles.txtp}>
-           4.The document itself is only three pages long. Seeing as it needs
-           to be posted to the address included at the bottom of the final
-           page.
+         2.When visiting the Wessex Water website scroll down and click contact us. 
+         It will redirect to the next page.
          </Text>
          <Text style={styles.txtp}>
-           5. You must now print the document.The option for printing is often
-           found under the ‘file’ tab such as in Microsoft Word [*Show this*].
-           When the document is printed, you can fill it out physically but if
-           you need to fill it out on the computer this is also possible,
-           however to post it you will still need to print it off. (If you do
-           not have access to a printer, consider contacting the Citizens
-           Advice Bureau.)
+         3.Inform the utility company of your circumstances and provide them with your recent, 
+         up-to-date readings. Following this, you will be sent a final bill up to the metre 
+         readings you have given. Depending on whether your dead loved one was in debt or was owed money, 
+         the balances can be paid to/from the estate.
          </Text>
-         <Image style={styles.ImageStyle} source={require('../assets/Screenshot3.png')}/>
+        
          <Text style={styles.txtp}>
-           5.5. In order to digitally edit documents you have downloaded, some
-           programs such as Microsoft Word require you to ‘enable editing’ by
-           clicking this button at the top of the screen. Upon clicking it, you
-           are now able to type words into the page in order to fill in the
-           details of the passport, yourself and the deceased. You can also
-           alter how the document looks which could be useful as you can change
-           the color of the background and text.
-         </Text>
-         <Text style={styles.txtp}>
-           6.From here simply fill out the form digitally or physically before
-           sending it off to the address enclosed in the document and the
-           Passport Office should handle the rest.
+         Things to note: Number to call for customer support for Wessex Water:  0345 600 3600
          </Text>
        </ScrollView>
        <View style={styles.items}></View>

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Button, Platform } from 'react-native';
+import { StyleSheet, View, Text, Button, Platform, TouchableOpacity } from 'react-native';
 import * as Calendar from 'expo-calendar';
 
 const  Cal = ({ navigation }) => {
+  
   useEffect(() => {
     (async () => {
       const { status } = await Calendar.requestCalendarPermissionsAsync();
@@ -30,12 +31,12 @@ const  Cal = ({ navigation }) => {
     if (defaultCalendar) {
 
       const eventDetails = {
-        title: 'My Event',
+        title: 'AA Records',
         startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
         endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
-        timeZone: 'America/Los_Angeles',
+        timeZone: 'Europe/London',
         location: 'Bath Spa University',
-        notes: 'This is a test event',
+        notes: 'Check AA Records have been updated.',
         alarms: [{ relativeOffset: -60 }] // 1 hour before event
       };
       await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
@@ -44,8 +45,10 @@ const  Cal = ({ navigation }) => {
 };
   return (
     <View style={styles.container}>
-      <Text  >Calendar Module Example</Text>
-      <Button  title="Create a new Event" onPress={createCalendar} />
+     
+      <TouchableOpacity style={styles.Button}  onPress={createCalendar}>
+        <Text style={styles.BtnTxt}>Remind me in 1 week.</Text>
+        </TouchableOpacity>
 
     </View>
   );
@@ -62,17 +65,40 @@ async function getDefaultCalendarSource() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#c9bea7',
+    backgroundColor: "#F5ECD7",
     
     color:'#000',
     height:52,
-    backgroundColor:'#dfd2bf',
+
 
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
 
     
+    },
+
+    Button:{
+      width: "70%",
+        color: "#000",
+        height: 52,
+        borderColor: "#6E362A",
+        borderWidth: 5, borderRadius: 4,
+        marginTop: 230,
+    
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+     
+        position: "absolute",
+        bottom: "50%",
+  transform: [{ translateY: 26 }],
+    },
+
+    BtnTxt: {
+      fontWeight: "bold",
+      fontSize: 20,
+      color: "#6E362A",
     },
 
 
