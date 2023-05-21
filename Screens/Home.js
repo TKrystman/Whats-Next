@@ -181,7 +181,14 @@ Pretty simple return code that lays out the home screen with touchable opecetys 
             <Text style={styles.BtnTxt}>Passport</Text>
           </TouchableOpacity>
 
-      
+            
+          <View style={styles.Ticker}>
+          <RankIcon3/>
+          </View>
+          <TouchableOpacity onPress={navigate3} style={styles.Button}>
+            <Text style={styles.BtnTxt}>Life Insurance</Text>
+          </TouchableOpacity>
+          
           <View style={styles.Ticker}>
           <RankIcon2/>
           </View>
@@ -189,13 +196,7 @@ Pretty simple return code that lays out the home screen with touchable opecetys 
             <Text style={styles.BtnTxt}>Car Insurance</Text>
           </TouchableOpacity>
 
-        
-          <View style={styles.Ticker}>
-          <RankIcon3/>
-          </View>
-          <TouchableOpacity onPress={navigate3} style={styles.Button}>
-            <Text style={styles.BtnTxt}>Life Insurance</Text>
-          </TouchableOpacity>
+  
           <View>
 
           

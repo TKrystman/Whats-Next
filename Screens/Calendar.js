@@ -1,81 +1,41 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Button, Platform, TouchableOpacity } from 'react-native';
-import * as Calendar from 'expo-calendar';
+import { StyleSheet, View, Text, Button, Platform, TouchableOpacity, Image } from 'react-native';
 
 const  Cal = ({ navigation }) => {
-  
-  useEffect(() => {
-    (async () => {
-      const { status } = await Calendar.requestCalendarPermissionsAsync();
-      if (status === 'granted') {
-        const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-        console.log('Here are all your calendars:');
-        console.log({ calendars });
-      }
-    })();
-  }, []);
 
-  async function createCalendar() {
-    const { status } = await Calendar.requestCalendarPermissionsAsync();
-    if (status === 'granted') {
-      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-      console.log('Calendars:', calendars);
-  
-      const defaultCalendar = calendars.find(calendar => (
-        calendar.allowsModifications &&
-        calendar.source.name === 'iCloud' &&
-        calendar.title === 'Home'
-      ));
-      console.log('Default calendar:', defaultCalendar);
-  
-    if (defaultCalendar) {
-
-      const eventDetails = {
-        title: 'AA Records',
-        startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
-        endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
-        timeZone: 'Europe/London',
-        location: 'Bath Spa University',
-        notes: 'Check AA Records have been updated.',
-        alarms: [{ relativeOffset: -60 }] // 1 hour before event
-      };
-      await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
-    }
+  function  navigate() {
+    navigation.navigate("Home")
   }
-};
-  return (
-    <View style={styles.container}>
-     
-      <TouchableOpacity style={styles.Button}  onPress={createCalendar}>
-        <Text style={styles.BtnTxt}>Remind me in 1 week.</Text>
-        </TouchableOpacity>
 
+  return (
+    
+    <View style={styles.container}>
+      
+      <Image style={styles.ImageStyle2} source={require('../assets/Timeline.psd')}/>
+     <Image style={styles.ImageStyle} source={require('../assets/CalTime.png')}/>
+     <TouchableOpacity onPress={navigate} style={styles.CircleShapeView}>
+         <Image
+           style={styles.icon5}
+           source={require("../assets/images/HomeIc.png")}
+         />
+       </TouchableOpacity>
     </View>
   );
-}
+};
 
-async function getDefaultCalendarSource() {
-  const defaultCalendar = await Calendar.getDefaultCalendarAsync();
-  return defaultCalendar.source;
-}
 
 
 
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
+    flexDirection: "column",
+
+    alignItems: "center",
     backgroundColor: "#F5ECD7",
-    
-    color:'#000',
-    height:52,
-
-
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center',
-
-    
+    height: "100%",
     },
 
     Button:{
@@ -101,7 +61,41 @@ const styles = StyleSheet.create({
       color: "#6E362A",
     },
 
+    ImageStyle: {
+      width: "100%",
+height: "27%",
 
-  }); 
-
+    },
+    ImageStyle2: {
+      width:'130%',
+      height:'30%',
+      resizeMode:'contain',
+      bottom:'5%',
+    },
+    CircleShapeView: {
+      width: 80,
+      height: 80,
+      borderRadius: 180 / 2,
+      backgroundColor: "#D9A24B",
+   top:'20%',
+      shadowColor: "rgba(0, 0, 0, 0.4)",
+      shadowOpacity: 1,
+      elevation: 4,
+      shadowRadius: 12,
+      shadowOffset: { width: 1, height: 10 },
+    },
+    icon5: {
+      alignSelf: "center",
+      top: "18%",
+      width: 50,
+      height: 50,
+    },
+    BotView: {
+      width: "100%",
+      height: "80%",
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+    },
+  })
+  
   export default Cal
