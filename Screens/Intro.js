@@ -24,6 +24,7 @@ let cacheResources = async () => {
     require("../assets/images/call.png"),
     require("../assets/CalTime.png"),
     require('../assets/Timeline.psd'),
+    require('../assets/Passport.mp4'),
   ];
  
   const cacheImages = images.map(image => {

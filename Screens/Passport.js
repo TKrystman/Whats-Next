@@ -48,7 +48,17 @@ const [Loading,setLoading]= useState(false);
       console.log(re);
         
   }
+  async function off() {
+    setTickOne("false")
+    await AsyncStorage.setItem("tickOne", "false")
 
+    setLoading(false);
+  
+    
+      setLoading(false);
+      console.log(re);
+        
+  }
   //Function to take the user home when it is called.
   function navigate() {
     navigation.navigate("Home")
@@ -127,6 +137,9 @@ const [Loading,setLoading]= useState(false);
             sending it off to the address enclosed in the document and the
             Passport Office should handle the rest.
           </Text>
+          <TouchableOpacity style={styles.Button2}  onPress={off}>
+        <Text style={styles.BtnTxt2}>Reset.</Text>
+        </TouchableOpacity>
         </ScrollView>
         <View style={styles.items}></View>
       </View>
@@ -307,7 +320,28 @@ const styles = StyleSheet.create({
     height:190,
     top: "6%",
     left:"10%",
-  }
+  },
+  Button2:{
+    width: "40%",
+      color: "#000",
+      height: 52,
+      borderColor: "#6E362A",
+      borderWidth: 5, borderRadius: 4,
+      marginTop: 130,
+  
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+   
+      
+
+  },
+
+  BtnTxt2: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#6E362A",
+  },
 })
 
 export default Passport

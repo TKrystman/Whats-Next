@@ -104,6 +104,18 @@ async function on() {
    )
  }
 
+ async function off() {
+  setTickThree("false")
+  await AsyncStorage.setItem("tickThree", "false")
+
+  setLoading(false);
+
+  
+    setLoading(false);
+    console.log(re);
+      
+}
+
  return (
    <View style={styles.container}>
      <View style={styles.tasksWrapper}>
@@ -131,12 +143,15 @@ async function on() {
            There will not be any inheritance tax to pay on this money. If the policy was not written in trust, the money will be considered as part of the person's estate.
            The estate includes all the money, assets and possessions the person owned when they died. This means getting the money can take longer and it may be subject to inheritance tax.
          </Text>
-        
+  
          <Text style={styles.txtp}>
            4. Life insurance claims are often settled within 30 days.
          </Text>
          <TouchableOpacity style={styles.Button2}  onPress={createCalendar}>
         <Text style={styles.BtnTxt2}>Remind me in 30 Days.</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.Button3}  onPress={off}>
+        <Text style={styles.BtnTxt2}>Reset.</Text>
         </TouchableOpacity>
        </ScrollView>
        <View style={styles.items}></View>
@@ -322,7 +337,8 @@ const styles = StyleSheet.create({
     height: 52,
     borderColor: "#6E362A",
     borderWidth: 5, borderRadius: 4,
-    marginTop: 130,
+    marginTop: 65,
+    left:25,
 
     display: "flex",
     justifyContent: "center",
@@ -336,6 +352,21 @@ BtnTxt2: {
   fontWeight: "bold",
   fontSize: 20,
   color: "#6E362A",
+},
+Button3:{
+  width: "40%",
+    color: "#000",
+    height: 52,
+    borderColor: "#6E362A",
+    borderWidth: 5, borderRadius: 4,
+    marginTop: 70,
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+ 
+    
+
 },
 })
 

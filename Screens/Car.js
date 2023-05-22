@@ -105,6 +105,17 @@ async function createCalendar() {
       "https://www.theaa.com/help-support/report-a-bereavement"
     )
   }
+  async function off() {
+    setTickTwo("false")
+    await AsyncStorage.setItem("tickTwo", "false")
+
+    setLoading(false);
+  
+      
+      setLoading(false);
+      console.log(re);
+        
+  }
 
   return (
     <View style={styles.container}>
@@ -140,6 +151,9 @@ async function createCalendar() {
           </Text>
           <TouchableOpacity style={styles.Button2}  onPress={createCalendar}>
         <Text style={styles.BtnTxt2}>Remind me in 1 week.</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.Button3}  onPress={off}>
+        <Text style={styles.BtnTxt2}>Reset.</Text>
         </TouchableOpacity>
         </ScrollView>
         <View style={styles.items}></View>
@@ -325,7 +339,7 @@ const styles = StyleSheet.create({
       height: 52,
       borderColor: "#6E362A",
       borderWidth: 5, borderRadius: 4,
-      marginTop: 130,
+      marginTop: 70,
   
       display: "flex",
       justifyContent: "center",
@@ -340,6 +354,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#6E362A",
   },
+  Button3:{
+    width: "40%",
+      color: "#000",
+      height: 52,
+      borderColor: "#6E362A",
+      borderWidth: 5, borderRadius: 4,
+      marginTop: 40,
+  
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+   
+      
+
+  },
+
 })
 
 

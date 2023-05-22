@@ -57,6 +57,17 @@ async function on() {
      "https://www.wessexwater.co.uk/your-account/your-bill/bereavement"
    )
  }
+ async function off() {
+  setTickFour("false")
+  await AsyncStorage.setItem("tickFour", "false")
+
+  setLoading(false);
+
+  
+    setLoading(false);
+    console.log(re);
+      
+}
 
  return (
    <View style={styles.container}>
@@ -94,6 +105,9 @@ async function on() {
          <Text style={styles.txtp}>
          Things to note: Number to call for customer support for Wessex Water:  0345 600 3600
          </Text>
+         <TouchableOpacity style={styles.Button2}  onPress={off}>
+        <Text style={styles.BtnTxt2}>Reset.</Text>
+        </TouchableOpacity>
        </ScrollView>
        <View style={styles.items}></View>
      </View>
@@ -271,7 +285,29 @@ const styles = StyleSheet.create({
    height:190,
    top: "6%",
    left:"10%",
- }
+ },
+ Button2:{
+  width: "40%",
+    color: "#000",
+    height: 52,
+    borderColor: "#6E362A",
+    borderWidth: 5, borderRadius: 4,
+    marginTop: 130,
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+ 
+    
+
+},
+
+BtnTxt2: {
+  fontWeight: "bold",
+  fontSize: 20,
+  color: "#6E362A",
+},
+
 })
 
 export default Water
