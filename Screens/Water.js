@@ -25,6 +25,7 @@ const Water = ({ navigation }) => {
  const [successMessage,setSuccessMessage]= useState('');
  const [Loading,setLoading]= useState(false);
 
+ //loads the async variable for the fourth tick
  async function loadtick() {
   const tick = await AsyncStorage.getItem("tickFour")
   if (tick !== null) {
@@ -36,6 +37,7 @@ useEffect(() => {
   loadtick()
 }, [])
 
+//if this function is ran the variable for the fourth tick is set to true
 async function on() {
   setTickFour("true")
   await AsyncStorage.setItem("tickFour", "true")
@@ -52,11 +54,14 @@ async function on() {
    navigation.navigate("Home")
  }
 
+ //this link will take the user to the page to do with water bills
  function link() {
    Linking.openURL(
      "https://www.wessexwater.co.uk/your-account/your-bill/bereavement"
    )
  }
+
+ //if this function is ran the variable for the fourth tick is set to false
  async function off() {
   setTickFour("false")
   await AsyncStorage.setItem("tickFour", "false")

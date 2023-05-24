@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useIsFocused } from "@react-navigation/native"
 
 const Home = ({ navigation }) => {
+  //the variables for all the ticks
   const [tickOne, setTickOne] = useState(false)
   const [tickTwo, setTickTwo] = useState(false)
   const [tickThree, setTickThree] = useState(false)
@@ -24,7 +25,7 @@ const Home = ({ navigation }) => {
 
 
 
-  
+  //this loads the state of tickOne from async
   async function LoadtickOne() {
     const TotalValue = await AsyncStorage.getItem("tickOne")
     console.log("home = " + TotalValue)
@@ -37,7 +38,7 @@ const Home = ({ navigation }) => {
     LoadtickOne()
   }, [isFocused])
 
-
+  //this loads the state of tickTwo from async
   async function LoadtickTwo() {
     const TotalValue = await AsyncStorage.getItem("tickTwo")
     console.log("home = " + TotalValue)
@@ -49,7 +50,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     LoadtickTwo()
   }, [isFocused])
-
+  //this loads the state of tickThree from async
   async function LoadtickThree() {
     const TotalValue = await AsyncStorage.getItem("tickThree")
     console.log("home = " + TotalValue)
@@ -61,7 +62,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     LoadtickThree()
   }, [isFocused])
-
+  //this loads the state of tickFour from async
   async function LoadtickFour() {
     const TotalValue = await AsyncStorage.getItem("tickFour")
     console.log("home = " + TotalValue)
@@ -74,6 +75,7 @@ const Home = ({ navigation }) => {
     LoadtickFour()
   }, [isFocused])
 
+  //for developer perposes. if needed this can be set to a button to quickly reset all the ticks to off
   const on = async () => {
     await AsyncStorage.removeItem("tickOne")
     setTickOne(false)
@@ -85,6 +87,7 @@ const Home = ({ navigation }) => {
     setTickFour(false)
   }
 
+  //function that sets the tick for the first section to visivle if the corrasponding variable is set to true
   const RankIcon = () => {
     if (tickOne == 'true') {
       console.log("Tick one")
@@ -98,7 +101,7 @@ const Home = ({ navigation }) => {
       return <Image style={styles.icon2} source={null} />
     }
   }
-
+ //function that sets the tick for the second section to visivle if the corrasponding variable is set to true
   const RankIcon2 = () => {
     if (tickTwo == 'true') {
       console.log("Tick Two")
@@ -112,6 +115,8 @@ const Home = ({ navigation }) => {
       return <Image style={styles.icon2} source={null} />
     }
   }
+
+   //function that sets the tick for the third section to visivle if the corrasponding variable is set to true
   const RankIcon3 = () => {
     if (tickThree == 'true') {
       console.log("Tick Three")
@@ -126,6 +131,7 @@ const Home = ({ navigation }) => {
     }
   }
 
+     //function that sets the tick for the fourth section to visivle if the corrasponding variable is set to true
   const RankIcon4 = () => {
     if (tickFour == 'true') {
       console.log("Tick Four")
@@ -165,7 +171,7 @@ const Home = ({ navigation }) => {
   }
 
   /**
-Pretty simple return code that lays out the home screen with touchable opecetys that can be used to navigate to all parts of the app.
+the following lays out the home screen with touchable opacitys that can be used to navigate to all parts of the app.
 */
 
   return (

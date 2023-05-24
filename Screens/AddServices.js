@@ -3,16 +3,20 @@ import { StyleSheet, Image, View, Text, Button, Platform,  Linking, TouchableOpa
 import * as Calendar from 'expo-calendar';
 
 const  Add = ({ navigation }) => {
+
+  //Navigate to flower shops via google maps
     function link() {
         Linking.openURL(
           "https://www.google.com/maps/search/flower+shop"
         )
       }
+        //Navigate to funeral directors via google maps
       function link2() {
         Linking.openURL(
           "https://www.google.com/maps/search/funeral+director"
         )
       }
+      //Navigate to the home.js page
       function  navigate() {
         navigation.navigate("Home")
       }

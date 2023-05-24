@@ -30,6 +30,7 @@ const Car = ({ navigation }) => {
   const [successMessage,setSuccessMessage]= useState('');
 const [Loading,setLoading]= useState(false);
 
+//This console logs the calanders.
 useEffect(() => {
   (async () => {
     const { status } = await Calendar.requestCalendarPermissionsAsync();
@@ -41,7 +42,9 @@ useEffect(() => {
   })();
 }, []);
 
+//This creates a calander event.
 async function createCalendar() {
+  //request the user for permission for the application to use the calander on the device
   const { status } = await Calendar.requestCalendarPermissionsAsync();
   if (status === 'granted') {
     const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
@@ -49,20 +52,21 @@ async function createCalendar() {
 
     const defaultCalendar = calendars.find(calendar => (
       calendar.allowsModifications &&
+      //finds the calander through the iclound name
       calendar.source.name === 'iCloud' &&
       calendar.title === 'Home'
     ));
     console.log('Default calendar:', defaultCalendar);
 
   if (defaultCalendar) {
-
+//create am evet with the attributes title, startDate, endDate, timeZone, location nodess and alarrms
     const eventDetails = {
-      title: 'My Event',
+      title: 'AA Records updated',
       startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
       endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
       timeZone: 'Europe/London',
       location: 'Bath Spa University',
-      notes: 'This is a test event',
+      notes: 'Check the progress of your AA records',
       alarms: [{ relativeOffset: -60 }] // 1 hour before event
     };
     await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
@@ -70,7 +74,7 @@ async function createCalendar() {
   }
 }
 
-
+//load the starte of the second tick variable
   async function loadtick() {
     const tick = await AsyncStorage.getItem("tickTwo")
     if (tick !== null) {
@@ -81,13 +85,12 @@ async function createCalendar() {
   useEffect(() => {
     loadtick()
   }, [])
-
+//If this function is ran the state of 'tickTwo' will be set to true.
   async function on() {
     setTickTwo("true")
     await AsyncStorage.setItem("tickTwo", "true")
-
+ //Run the sucess message from the file complete.js
     setLoading(true);
-  
     setSuccessMessage("Task Complete"); 
     setLoading(false);
     console.log(re);
@@ -95,16 +98,17 @@ async function createCalendar() {
   }
 
 
-  //Function to take the user home when it is called.
+   //Navigate to the home.js page
   function navigate() {
     navigation.navigate("Home")
   }
-
+//Takes the user to the link to the car insurence page.
   function link() {
     Linking.openURL(
       "https://www.theaa.com/help-support/report-a-bereavement"
     )
   }
+  //if this function is ran the state for tickTwo will be set to false
   async function off() {
     setTickTwo("false")
     await AsyncStorage.setItem("tickTwo", "false")

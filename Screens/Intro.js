@@ -7,7 +7,7 @@ import AppLoading from 'expo-app-loading';
 
 const  Intro = ({ navigation }) => {
 let [isLoaded, setIsLoaded] = React.useState(false);
-
+//pre load all the assets so that the app is seemless when navigating through.
 let cacheResources = async () => {
   const images = [
     require("../assets/appTop.png",),
@@ -34,7 +34,7 @@ let cacheResources = async () => {
 
   return Promise.all(cacheImages);
 }
-
+//once all reseources asre loaded set is loaded to true so that the app can start.
 React.useEffect(() => {
   const loadResources = async () =>{
     await cacheResources();
@@ -42,7 +42,7 @@ React.useEffect(() => {
   };
   loadResources();
 }, [])
-
+//links to home and how to use page
     function link() {
         navigation.navigate("Home")
       }

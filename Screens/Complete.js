@@ -4,7 +4,7 @@ import { Overlay } from '@rneui/base';
 
 const Complete =(props)=>{
     /*
-This runs when the user has created their account to signal that their account has been successfully made.
+This will run once a section is completed and the user presses the "done" button 
 */
     return(
         props.successMessage?

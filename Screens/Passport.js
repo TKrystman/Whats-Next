@@ -25,7 +25,7 @@ const Passport = ({ navigation }) => {
   const [successMessage,setSuccessMessage]= useState('');
 const [Loading,setLoading]= useState(false);
 
-
+//this fucntion loads the variable for the first tick
   async function loadtick() {
     const tick = await AsyncStorage.getItem("tickOne")
     if (tick !== null) {
@@ -37,6 +37,7 @@ const [Loading,setLoading]= useState(false);
     loadtick()
   }, [])
 
+  //if this is called the first tick is set to true
   async function on() {
     setTickOne("true")
     await AsyncStorage.setItem("tickOne", "true")
@@ -48,6 +49,7 @@ const [Loading,setLoading]= useState(false);
       console.log(re);
         
   }
+  //if this function is called the first tick is set to false
   async function off() {
     setTickOne("false")
     await AsyncStorage.setItem("tickOne", "false")
@@ -63,7 +65,7 @@ const [Loading,setLoading]= useState(false);
   function navigate() {
     navigation.navigate("Home")
   }
-
+// this link will take you to the page with information about the passpoert section.
   function link() {
     Linking.openURL(
       "https://www.gov.uk/government/publications/what-to-do-with-a-passport-when-the-passport-holder-has-died"

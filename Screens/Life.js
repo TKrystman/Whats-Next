@@ -30,7 +30,7 @@ const Life = ({ navigation }) => {
  const [successMessage,setSuccessMessage]= useState('');
  const [Loading,setLoading]= useState(false);
 
-
+//This console logs the calanders.
  useEffect(() => {
   (async () => {
     const { status } = await Calendar.requestCalendarPermissionsAsync();
@@ -42,7 +42,9 @@ const Life = ({ navigation }) => {
   })();
 }, []);
 
+//This creates a calander event.
 async function createCalendar() {
+   //request the user for permission for the application to use the calander on the device
   const { status } = await Calendar.requestCalendarPermissionsAsync();
   if (status === 'granted') {
     const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
@@ -50,17 +52,18 @@ async function createCalendar() {
 
     const defaultCalendar = calendars.find(calendar => (
       calendar.allowsModifications &&
+      //finds the calander through the iclound name
       calendar.source.name === 'iCloud' &&
       calendar.title === 'Home'
     ));
     console.log('Default calendar:', defaultCalendar);
 
   if (defaultCalendar) {
-
+//create am evet with the attributes title, startDate, endDate, timeZone, location nodess and alarrms
     const eventDetails = {
-      title: 'Life Insurence Claimb',
-      startDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 1 week from now
-      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 1 week from now, plus 2 hours
+      title: 'Life Insurence Claim',
+      startDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000), // 30 days from now, plus 2 hours
       timeZone: 'Europe/London',
       location: 'Bath Spa University',
       notes: 'Life Insurence Claim return deadline.',
@@ -70,7 +73,7 @@ async function createCalendar() {
   }
 }
 };
- 
+ //load the starte of the third tick variable
  async function loadtick() {
   const tick = await AsyncStorage.getItem("tickThree")
   if (tick !== null) {
@@ -81,11 +84,11 @@ async function createCalendar() {
 useEffect(() => {
   loadtick()
 }, [])
-
+//If this function is ran the state of 'tickThree' will be set to true.
 async function on() {
   setTickThree("true")
   await AsyncStorage.setItem("tickThree", "true")
-
+ //Run the sucess message from the file complete.js
   setLoading(true);
   
   setSuccessMessage("Task Complete"); 
@@ -97,13 +100,13 @@ async function on() {
  function navigate() {
    navigation.navigate("Home")
  }
-
+//Takes the user to the link to the life insurence page.
  function link() {
    Linking.openURL(
      "https://www.mariecurie.org.uk/help/support/benefits-entitlements/bereavement/claiming-on-life-insurance#:~:text=You%20will%20need%20to%20send,was%20named%20as%20the%20beneficiary."
    )
  }
-
+//if this function is ran the state for tickThree will be set to false
  async function off() {
   setTickThree("false")
   await AsyncStorage.setItem("tickThree", "false")

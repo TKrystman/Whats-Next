@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Button, Platform, TouchableOpacity, Image } from 'react-native';
 
 const  Cal = ({ navigation }) => {
-
+  //Navigate to the home.js page
   function  navigate() {
     navigation.navigate("Home")
   }
