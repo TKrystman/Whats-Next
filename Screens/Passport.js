@@ -157,10 +157,6 @@ const [Loading,setLoading]= useState(false);
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => on()} style={styles.Button}>
- 
-
-
-
           <Text style={styles.txtb}> Done </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
