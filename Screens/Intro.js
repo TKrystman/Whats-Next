@@ -6,53 +6,53 @@ import AppLoading from 'expo-app-loading';
 
 
 const  Intro = ({ navigation }) => {
-let [isLoaded, setIsLoaded] = React.useState(false);
-//pre load all the assets so that the app is seemless when navigating through.
-let cacheResources = async () => {
-  const images = [
-    require("../assets/appTop.png",),
-    require("../assets/appMain.png"),
-    require("../assets/images/tick.png"),
-    require("../assets/images/VideoPlaceholder.png"),
-    require("../assets/Screenshot1.png"),
-    require("../assets/Screenshot2.png"),
-    require("../assets/Screenshot3.png"),
-    require("../assets/Flower.png"),
-    require("../assets/Funeral.png"),
-    require("../assets/AddSer.png"),
-    require("../assets/images/HomeIc.png"),
-    require("../assets/images/call.png"),
-    require("../assets/CalTime.png"),
-    require('../assets/Timeline.psd'),
-    require('../assets/Passport.mp4'),
-  ];
- 
-  const cacheImages = images.map(image => {
-    return Asset.fromModule(image).downloadAsync();
+  let [isLoaded, setIsLoaded] = React.useState(false);
+  //pre-load all the assets so that the app is seamless when navigating through.
+  let cacheResources = async () => {
+   const images = [
+     require("../assets/appTop.png",),
+     require("../assets/appMain.png"),
+     require("../assets/images/tick.png"),
+     require("../assets/images/VideoPlaceholder.png"),
+     require("../assets/Screenshot1.png"),
+     require("../assets/Screenshot2.png"),
+     require("../assets/Screenshot3.png"),
+     require("../assets/Flower.png"),
+     require("../assets/Funeral.png"),
+     require("../assets/AddSer.png"),
+     require("../assets/images/HomeIc.png"),
+     require("../assets/images/call.png"),
+     require("../assets/CalTime.png"),
+     require('../assets/Timeline.psd'),
+     require('../assets/Passport.mp4'),
+   ];
+   const cacheImages = images.map(image => {
+     return Asset.fromModule(image).downloadAsync();
     
-  });
-
-  return Promise.all(cacheImages);
-}
-//once all reseources asre loaded set is loaded to true so that the app can start.
-React.useEffect(() => {
-  const loadResources = async () =>{
-    await cacheResources();
-    setIsLoaded(true);
-  };
-  loadResources();
-}, [])
-//links to home and how to use page
-    function link() {
-        navigation.navigate("Home")
-      }
-      function link2() {
-        navigation.navigate("HowToUse")
-      }
-      if (!isLoaded) {
-        return <AppLoading /> //keeps app on loading screen untill assets are loaded 
-      }
-    return (
+   });
+  
+  
+   return Promise.all(cacheImages);
+  }
+  //Once all resources are loaded, the set is loaded to true so that the app can start.
+  React.useEffect(() => {
+   const loadResources = async () =>{
+     await cacheResources();
+     setIsLoaded(true);
+   };
+   loadResources();
+  }, [])
+  //links to home and how to use page
+     function link() {
+         navigation.navigate("Home")
+       }
+       function link2() {
+         navigation.navigate("HowToUse")
+       }
+       if (!isLoaded) {
+         return <AppLoading /> //keeps app on loading screen until assets are loaded
+       }
+     return (
         <View style={styles.container}>
   <Image style={styles.ImageStyle} source={require('../assets/appMain.png')}/>
           <TouchableOpacity  style={styles.ButtonLower} onPress={link}>
